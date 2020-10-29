@@ -17,7 +17,12 @@
 
 
 #1. Get ready
-
+#2. Read the matrices to be analyzed
+#3. Calculate a metric for the original networks
+#4. Create randomized version of the original network
+#5. Calculate the same metric for the randomized networks
+#6. Pool the observed and randomized scores
+#7. Synthesize the results
 
 
 ################################################################################
@@ -58,6 +63,12 @@ class(network_list)
 class(network_list[[1]])
 head(network_list)
 
+
+################################################################################
+##### 3. Calculate a metric for the original networks
+################################################################################
+
+
 #Select a network-level from the package bipartite
 metric <- "NODF"
 
@@ -79,6 +90,12 @@ observed_df <- observed_df[, c(2, 1)]
 class(observed_df)
 head(observed_df)
 
+
+################################################################################
+##### 4. Create randomized version of the original network
+################################################################################
+
+
 #Set the number of permutations to be used in all analyses. Attention:
 #permutation analysis can be quite resource-consuming. Therefore, pay attention
 #to your computer's power and memory, before setting this number. Just to
@@ -95,6 +112,12 @@ nulls <- lapply(network_list,
 #Check the list of randomized matrices
 class(nulls)
 head(nulls)
+
+
+################################################################################
+##### 5. Calculate the same metric for the randomized networks
+################################################################################
+
 
 #Calculate the same network-level metric for all randomized matrices
 randomized <- rapply(nulls,
@@ -119,12 +142,24 @@ randomized_df$randomization <- randomizations
 #Check the data frame with randomized results
 head(randomized_df)
 
+
+################################################################################
+##### 6. Pool the observed and randomized scores
+################################################################################
+
+
 #Merge the data frames with observed and randomized results
 results <- merge(randomized_df, observed_df, by = "network")
 
 #Check the final data frame
 class(results)
 head(results)
+
+
+################################################################################
+##### 7. Synthesize the results
+################################################################################
+
 
 #Estimate the P-values and z-scores of the metric by simple counts
 p_values <- results %>%
@@ -142,7 +177,7 @@ p_values
 #Export the final results
 write_delim(p_values, "results/p_values.txt")
 
-#Now plot the observed scores against the distributions of randomized scores for
+#Now plot the observed score against the distribution of randomized scores for
 #each network
 p1 <- ggplot(results) +
     geom_density(aes(randomized)) + #distribution of randomized scores
@@ -158,3 +193,7 @@ png("figures/distributions.png",
     height = 3000, width = 3000)
 p1
 dev.off()
+
+
+################################### END ########################################
+
