@@ -17,7 +17,7 @@ Disclaimer: You may use this software freely for any purposes at your own risk. 
 
 ## Functionality and origin
 
-You can use this script to automatize the topological analysis of multiple networks. It saves a lot of time and effort, compared to analyzing all networks one at a time. This script was written to be used in an ongoing study about the topology of interaction networks. See details about our research programm [here](https://marcomellolab.wordpress.com/home/projects/).
+You can use this script to automatize the topological analysis of multiple networks. It saves a lot of time and effort, compared to analyzing all networks one at a time. This script was written to be used in an ongoing study about the topology of interaction networks. See details about our research program [here](https://marcomellolab.wordpress.com/home/projects/).
 
 
 ## Instructions
