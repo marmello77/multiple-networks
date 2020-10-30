@@ -92,7 +92,7 @@ head(observed_df)
 
 
 ################################################################################
-##### 4. Create randomized version of the original network
+##### 4. Create randomized versions of the original network
 ################################################################################
 
 
