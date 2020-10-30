@@ -69,7 +69,7 @@ head(network_list)
 ################################################################################
 
 
-#Select a network-level from the package bipartite
+#Select a network-level metric from the package bipartite
 metric <- "NODF"
 
 #Calculate the selected metric for all matrices in the list
@@ -77,7 +77,7 @@ observed <- lapply(network_list,
                    bipartite::networklevel,
                    index = metric)
 
-#Check the data frame of observed results
+#Check the data frame with observed scores
 class(observed)
 head(observed)
 
@@ -107,7 +107,7 @@ permutations <- 10
 nulls <- lapply(network_list, 
                 bipartite::nullmodel, 
                 N = permutations, 
-                method = "vaznull") #select an adequate null model
+                method = "vaznull") #Select a null model
 
 #Check the list of randomized matrices
 class(nulls)
@@ -115,7 +115,7 @@ head(nulls)
 
 
 ################################################################################
-##### 5. Calculate the same metric for the randomized networks
+##### 5. Calculate the same metric for all randomized networks
 ################################################################################
 
 
@@ -139,7 +139,7 @@ randomizations <- paste(rep(paste(rep("randomization", 10),
                             length(network_list)))
 randomized_df$randomization <- randomizations
 
-#Check the data frame with randomized results
+#Check the data frame with randomized scores
 head(randomized_df)
 
 
@@ -148,7 +148,7 @@ head(randomized_df)
 ################################################################################
 
 
-#Merge the data frames with observed and randomized results
+#Merge the data frames with observed and randomized scores
 results <- merge(randomized_df, observed_df, by = "network")
 
 #Check the final data frame
@@ -161,7 +161,7 @@ head(results)
 ################################################################################
 
 
-#Estimate the P-values and z-scores of the metric by simple counts
+#Estimate the p-values and z-scores of the metric by simple count
 p_values <- results %>%
     group_by(network) %>%
     summarize(p_sup = mean(observed >= randomized),
@@ -171,10 +171,10 @@ p_values <- results %>%
               obs = mean(observed)) %>%
     mutate(z_sco = (obs-rand_mean)/rand_sd)
 
-#Check the P-values and z-scores
+#Check the p-values and z-scores
 p_values
 
-#Export the final results
+#Export the final results as a TXT file
 write_delim(p_values, "results/p_values.txt")
 
 #Now plot the observed score against the distribution of randomized scores for
@@ -187,7 +187,7 @@ p1 <- ggplot(results) +
 #Visualize the plot
 p1
 
-#Export the plot as an image file
+#Export the plot as a PNG file
 png("figures/distributions.png", 
     res = 300, units = "px", 
     height = 3000, width = 3000)
