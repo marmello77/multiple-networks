@@ -8,7 +8,7 @@
 ##### Author: Marco Mello
 ##### E-mail: marmello@usp.br
 ##### See README for further info:
-##### https://github.com/marmello77/multiple-networks/blob/master/README.md
+##### https://github.com/marmello77/multiple-networks/blob/main/README.md
 
 
 ################################################################################
