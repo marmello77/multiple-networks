@@ -134,7 +134,7 @@ randomized_df <- as.data.frame(unlist(randomized))
 colnames(randomized_df) <- "randomized"
 networks <- paste(sort(rep(files, permutations)))
 randomized_df$network <- networks
-randomizations <- paste(rep(paste(rep("randomization", 10),
+randomizations <- paste(rep(paste(rep("randomization", permutations),
                                   seq(1:permutations), sep = "_"),
                             length(network_list)))
 randomized_df$randomization <- randomizations
