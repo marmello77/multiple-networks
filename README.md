@@ -98,6 +98,6 @@ If you want to understand the theory behind this script, read the following work
 
 * Dormann, C. F., Gruber, B., & Fründ, J. (2008). [Introducing the bipartite package: analyzing ecological networks](https://www.uni-goettingen.de/de/document/download/96729eb9d30a6f2dc4403df15854305c.pdf/Rnews2008,8_8-11_open.pdf). R News, 8(2), 8–11.
 
-* Manly, B. F. J. (2007). [Randomization, bootstrap and Monte Carlo methods in biology](https://amzn.to/3ksSGv3). (3rd ed.). Boca Raton: Chapman & Hall/CRC.
+* Manly, B. F. J. (2007). [Randomization, bootstrap and Monte Carlo methods in biology](https://amzn.to/3ksSGv3), 3rd ed. Boca Raton: Chapman & Hall/CRC.
 
 * Mello MAR, Muylaert RL, Pinheiro RBP & Félix GMF. 2016. [Guia para análise de redes ecológicas](https://marcomellolab.wordpress.com/software/). Edição dos autores, Belo Horizonte. 112 p. ISBN-13: 978-85-921757-0-2.
