@@ -59,6 +59,8 @@ files
 network_list <- files %>%
     map(~ read.delim(file.path("data/", .), row.names = 1)) %>%
     lapply(as.matrix)
+
+#Check the data
 class(network_list)
 class(network_list[[1]])
 head(network_list)
@@ -69,7 +71,7 @@ head(network_list)
 ################################################################################
 
 
-#Select a network-level metric from the package bipartite
+#Select the name of a network-level metric from the package bipartite
 metric <- "NODF"
 
 #Calculate the selected metric for all matrices in the list
@@ -77,16 +79,19 @@ observed <- lapply(network_list,
                    bipartite::networklevel,
                    index = metric)
 
-#Check the data frame with observed scores
+#Check the observed scores
 class(observed)
 head(observed)
 
 #Create an informative data frame with the observed scores of the metric
-observed_df <- as.data.frame(unlist(observed))
-colnames(observed_df) <- "observed"
-nets <- paste(files)
-observed_df$network <- nets
-observed_df <- observed_df[, c(2, 1)]
+observed_df <- observed %>% 
+    unlist() %>%
+    as.data.frame() %>%
+    `colnames<-`("observed") %>%
+    mutate(network = paste(files)) %>%
+    select(network, observed)
+
+#Check the observed scores
 class(observed_df)
 head(observed_df)
 
@@ -109,7 +114,7 @@ nulls <- lapply(network_list,
                 N = permutations, 
                 method = "vaznull") #Select a null model
 
-#Check the list of randomized matrices
+#Check the randomized matrices
 class(nulls)
 head(nulls)
 
@@ -125,20 +130,21 @@ randomized <- rapply(nulls,
                      index = metric,
                      how = "list")
 
-#Check the result
+#Check the randomized scores
 class(randomized)
 head(randomized)
 
 #Create an informative data frame with the randomized scores of the metric
-randomized_df <- as.data.frame(unlist(randomized))
-colnames(randomized_df) <- "randomized"
-networks <- paste(sort(rep(files, permutations)))
-randomized_df$network <- networks
-randomizations <- paste(rep(paste(rep("randomization", permutations),
-                                  seq(1:permutations), sep = "_"),
-                            length(network_list)))
-randomized_df$randomization <- randomizations
-
+randomized_df <- randomized %>%
+    unlist() %>%
+    as.data.frame() %>%
+    `colnames<-`("randomized") %>%
+    mutate(network = paste(sort(rep(files, permutations)))) %>%
+    mutate(randomization = paste(rep(paste(
+        rep("randomization", permutations),
+        seq(1:permutations), sep = "_"),
+        length(network_list))))
+    
 #Check the data frame with randomized scores
 head(randomized_df)
 
