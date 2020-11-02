@@ -48,7 +48,7 @@ library(tidyverse)
 
 #Create a list of the files stored in your "data" directory. These files should
 #be all in TXT format. They should be formatted as incidence matrices (AxB),
-#which have on class of nodes in the rows, and another class of nodes in the
+#which have one class of nodes in the rows, and another class of nodes in the
 #columns. See the examples provided to organize your data properly.
 files <- list.files("data/", pattern = "*.txt")
 
